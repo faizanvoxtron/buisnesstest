@@ -1,6 +1,6 @@
 FROM php:8.3-apache
 
-# Install dependencies for a static PHP website (minimal setup)
+# Install dependencies and common PHP extensions
 RUN apt-get update && apt-get install -y \
     libzip-dev \
     zip \
@@ -8,9 +8,16 @@ RUN apt-get update && apt-get install -y \
     libpng-dev \
     libjpeg62-turbo-dev \
     libfreetype6-dev \
+    libonig-dev \
+    libxml2-dev \
     curl \
     && docker-php-ext-configure gd --with-freetype --with-jpeg \
-    && docker-php-ext-install gd zip exif xml opcache
+    && docker-php-ext-install \
+        gd \
+        zip \
+        exif \
+        xml \
+        opcache
 
 # Enable Apache mod_rewrite
 RUN a2enmod rewrite
