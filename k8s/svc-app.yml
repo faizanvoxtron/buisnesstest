@@ -2,12 +2,11 @@ apiVersion: v1
 kind: Service
 metadata:
   name: businesslogodesign-web
+  namespace: bld
 spec:
   selector:
     app: businesslogodesign-web
   ports:
     - protocol: TCP
-      port: 8081
+      port: 8085
       targetPort: 80
-      nodePort: 30005
-  type: NodePort

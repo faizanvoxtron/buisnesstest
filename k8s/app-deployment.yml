@@ -4,6 +4,7 @@ metadata:
   name: businesslogodesign-web
   labels:
     app: businesslogodesign-web
+  namespace: bld
 spec:
   replicas: 1
   selector:
@@ -20,3 +21,17 @@ spec:
           ports:
             - containerPort: 80
           imagePullPolicy: Always
+          resources:
+            requests:
+              cpu: "100m"   # 0.1 core
+              memory: "256Mi"  # 256MB
+            limits:
+              cpu: "500m"   # 0.5 core
+              memory: "1Gi"  # 1GB
+          volumeMounts:
+            - name: businesslogodesign-volume
+              mountPath: /var/www/html
+      volumes:
+        - name: businesslogodesign-volume
+          persistentVolumeClaim:
+            claimName: bld-pvc
